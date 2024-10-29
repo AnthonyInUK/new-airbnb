@@ -1,31 +1,24 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import Navbar from '@/components/navbar/Navbar';
-import Providers from '../providers';
-import { ClerkProvider } from '@clerk/nextjs';
-const inter = Inter({ subsets: ['latin'] });
+import FormContainer from '@/components/form/FormContainer';
+import { updateProfileAction, fetchProfile } from '@/components/utils/actions';
+import FormInput from '@/components/form/FormInput';
+import { SubmitButton } from '@/components/form/Buttons';
 
-export const metadata: Metadata = {
-    title: 'HomeAway Draft',
-    description: 'Feel at home, away from home.',
-};
-
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
-    return (
-        <ClerkProvider>
-            <html lang='en' suppressHydrationWarning>
-                <body className={inter.className}>
-                    <Providers>
-                        <Navbar />
-                        <main className='container py-10'>{children}</main>
-                    </Providers>
-                </body>
-            </html>
-        </ClerkProvider>
-    );
+async function ProfilePage() {
+    const profile = await fetchProfile()
+    return <section>
+        <h1 className='text-2xl font-semibold mb-8 capitalize'>user profile</h1>
+        <div className='border p-8 rounded-md'>
+            {/* image input container */}
+            <FormContainer action={updateProfileAction}>
+                <div className="grid md:grid-cols-2 gap-4 mt-4">
+                    <FormInput type="text" name="firstName" label="First Name" defaultValue={profile.firstName} />
+                    <FormInput type="text" name="lastName" label="Last Name" defaultValue={profile.lastName} />
+                    <FormInput type="text" name="username" label="User Name" defaultValue={profile.username} />
+                </div>
+                <SubmitButton text="Create Profile" className="mt-8" />
+            </FormContainer>
+        </div>
+    </section>
 }
+
+export default ProfilePage;
