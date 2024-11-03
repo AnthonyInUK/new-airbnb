@@ -2709,7 +2709,7 @@ export default FavoriteToggleButton;
 ```tsx
 import { findCountryByCode } from '@/utils/countries';
 
-function CountryFlagAndName({ countryCode }: { countryCode: string }) {
+function skeleton({ countryCode }: { countryCode: string }) {
   const validCountry = findCountryByCode(countryCode);
   const countryName =
     validCountry!.name.length > 20
