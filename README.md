@@ -2556,7 +2556,7 @@ export default PropertiesContainer;
 
 - components/card
   - CountryFlagAndName.tsx
-  - FavoriteToggleButton.tsx
+  - FavoriteToggleButton.tsx 
   - FavoriteToggleForm.tsx
   - LoadingCards.tsx
   - PropertyCard.tsx
