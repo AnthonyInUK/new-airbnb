@@ -1,5 +1,7 @@
 import { fetchPropertyDetails } from "@/utils/actions"
 import { redirect } from 'next/navigation';
+import { Skeleton } from "@/components/ui/Skeleton";
+import { Separator } from "@/components/ui/separator";
 import BreadCrumbs from "@/components/properties/BreadCrumbs";
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import ShareButton from "@/components/properties/ShareButton";
@@ -7,12 +9,25 @@ import ImageContainer from "@/components/properties/ImageContainer";
 import PropertyRating from "@/components/card/PropertyRating";
 import BookingCalendar from "@/components/properties/BookingCalendar";
 import PropertyDetails from "@/components/properties/PropertyDetails";
+import UserInfo from "@/components/properties/UserInfo";
+import Description from "@/components/properties/Description";
+import Amenities from "@/components/properties/Amenities";
+import dynamic from "next/dynamic";
+
+
+const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), {
+    ssr: false,
+    loading: () => <Skeleton className='h-[400px] w-full' />,
+})
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
     const property = await fetchPropertyDetails(params.id);
     if (!property) redirect('/')
     const { baths, bedrooms, beds, guests } = property
     const details = { baths, bedrooms, beds, guests }
+    const firstName = property.profile.firstName;
+    const profileImage = property.profile.profileImage;
+
     return (
         <section><BreadCrumbs name={property.name} />
             <header className="flex justify-between items-center mt-4"><h1 className='text-4xl font-bold '>{property.tagline}</h1>
@@ -27,6 +42,10 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
                         <PropertyRating inPage propertyId={property.id} />
                     </div>
                     <PropertyDetails details={details} />
+                    <UserInfo profile={{ firstName, profileImage }} />
+                    <Separator className='mt-4' /><Description description={property.description} />
+                    <Amenities amenities={property.amenities} />
+                    <DynamicMap countryCode={property.country} />;
                 </div>
                 <div className='lg:col-span-4 flex flex-col items-center'>
                     <BookingCalendar />
