@@ -18,9 +18,10 @@ model Profile {
   profileImage String
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
-  properties Property[]
+  properties      Property[]
   favorites    Favorite[]
 }
+
 
 model Property {
   id          String     @id @default(uuid())
@@ -43,6 +44,7 @@ model Property {
   favorites    Favorite[]
 }
 
+
 model Favorite {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -55,3 +57,4 @@ model Favorite {
   propertyId String
 
 }
+
