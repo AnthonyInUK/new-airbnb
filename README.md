@@ -2993,7 +2993,7 @@ export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
 ### FavoriteToggleForm
 
 ```tsx
-'use client';
+'use client';"postinstall": "npx prisma generate"
 
 import { usePathname } from 'next/navigation';
 import FormContainer from '../form/FormContainer';
