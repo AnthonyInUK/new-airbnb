@@ -5,25 +5,29 @@ import { LuMinus, LuPlus } from 'react-icons/lu';
 import { Button } from '../ui/button';
 import { useState } from 'react';
 
-import React from 'react'
-
-function CounterInput({ detail, defalutValue }: { detail: string, defalutValue?: number }) {
-    const [count, setCount] = useState(defalutValue || 0)
+function CounterInput({
+    detail,
+    defaultValue,
+}: {
+    detail: string;
+    defaultValue?: number;
+}) {
+    const [count, setCount] = useState(defaultValue || 0);
     const increaseCount = () => {
         setCount((prevCount) => prevCount + 1);
-    }
+    };
     const decreaseCount = () => {
         setCount((prevCount) => {
             if (prevCount > 0) {
                 return prevCount - 1;
             }
             return prevCount;
-        })
-    }
+        });
+    };
     return (
         <Card className='mb-4'>
             <input type='hidden' name={detail} value={count} />
-            <CardHeader className='flex flex-col gap-y-5' >
+            <CardHeader className='flex flex-col gapy-5'>
                 <div className='flex items-center justify-between flex-wrap'>
                     <div className='flex flex-col'>
                         <h2 className='font-medium capitalize'>{detail}</h2>
@@ -53,9 +57,7 @@ function CounterInput({ detail, defalutValue }: { detail: string, defalutValue?:
                 </div>
             </CardHeader>
         </Card>
-    )
+    );
 }
 
-export default CounterInput
-
-
+export default CounterInput;

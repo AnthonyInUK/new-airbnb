@@ -5521,7 +5521,7 @@ export const updatePropertyImageAction = async (
 };
 ```
 
-### Reservations
+### 
 
 - in app/reservations create page.tsx and loading.tsx
 

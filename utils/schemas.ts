@@ -33,11 +33,28 @@ export const imageSchema = z.object({
     image: validateFile(),
 })
 
+// function validateFile() {
+//     const maxUploadSize = 1024 * 1024;
+//     const acceptedFilesTypes = ['image/'];
+//     return z
+//         .instanceof(File)
+//         .refine((file) => {
+//             return !file || file.size <= maxUploadSize;
+//         }, 'File size must be less than 1 MB')
+//         .refine((file) => {
+//             return (
+//                 !file || acceptedFilesTypes.some((type) => file.type.startsWith(type))
+//             );
+//         }, 'File must be an image');
+// }
 function validateFile() {
     const maxUploadSize = 1024 * 1024;
     const acceptedFilesTypes = ['image/'];
-    return z
-        .instanceof(File)
+
+    // Instead of :  z.instanceof(File) << --- Error 
+    // I change it to z.any()
+
+    return z.any()
         .refine((file) => {
             return !file || file.size <= maxUploadSize;
         }, 'File size must be less than 1 MB')
@@ -47,6 +64,7 @@ function validateFile() {
             );
         }, 'File must be an image');
 }
+
 
 export const propertySchema = z.object({
     name: z
